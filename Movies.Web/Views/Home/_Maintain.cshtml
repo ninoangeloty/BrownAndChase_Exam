@@ -1,0 +1,53 @@
+﻿@using Movies.Web.Models
+
+@model MovieViewModel
+
+<div class="col-lg-6">
+    <div class="form-group">
+        @Html.LabelFor(_ => _.Title, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.TextBoxFor(_ => _.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(_ => _.Title)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(_ => _.Classification, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.TextBoxFor(_ => _.Classification, new { @class = "form-control" })
+            @Html.ValidationMessageFor(_ => _.Classification)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(_ => _.Genre, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.TextBoxFor(_ => _.Genre, new { @class = "form-control" })
+            @Html.ValidationMessageFor(_ => _.Genre)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(_ => _.ReleaseDate, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.TextBoxFor(_ => _.ReleaseDate, new { @class = "form-control" })
+            @Html.ValidationMessageFor(_ => _.ReleaseDate)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(_ => _.Rating, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.TextBoxFor(_ => _.Rating, new { @class = "form-control" })
+            @Html.ValidationMessageFor(_ => _.Rating)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(_ => _.Cast, new { @class = "control-label col-lg-2" })
+        <div class="col-lg-10">
+            @Html.Partial("_ListBox", Model.Cast ?? new string[] { })            
+            @Html.ValidationMessageFor(_ => _.Cast)
+        </div>
+    </div>
+    <div class="controls pull-left">
+        <button id="btnsubmit" type="submit" class="btn btn-primary">Submit</button>
+        <button id="btncancel" type="button" class="btn btn-default">Cancel</button>
+    </div>
+</div>
+

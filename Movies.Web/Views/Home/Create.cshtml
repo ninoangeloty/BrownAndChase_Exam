@@ -1,0 +1,30 @@
+﻿@using Movies.Web.Models
+
+@model MovieViewModel
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<div class="container-fluid">
+    <ol class="breadcrumb clearfix">
+        <li><a href=".">Home</a></li>
+        <li>Create</li>
+    </ol>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">CREATE NEW MOVIE</h3>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.Partial("_Maintain")
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    <script src="~/Scripts/movies.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+}

@@ -1,0 +1,117 @@
+﻿@using Movies.Web.Models
+
+@model MovieResultViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(_ => _.NewSearch)
+    @Html.HiddenFor(_ => _.OldSearch)
+    @Html.HiddenFor(_ => _.TotalPage)
+    @Html.HiddenFor(_ => _.CurrentPage)
+    
+    <div class="container-index">
+        <div class="input-group">
+            @*<input type="text" name="Search" class="form-control" placeholder="Search...">*@
+            @Html.TextBoxFor(_ => _.Search, new { @class = "form-control", placeholder = "Search" })
+            <span class="input-group-btn">
+                <button class="btn btn-default" id="btnsearch" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-condensed pull-down">
+                <thead>
+                    <tr>
+                        <th><a href="javascript:;">Title</a></th>
+                        <th><a href="javascript:;">Classification</a></th>
+                        <th><a href="javascript:;">Genre</a></th>
+                        <th><a href="javascript:;">Release Date</a></th>
+                        <th><a href="javascript:;">Rating</a></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Movies)
+                    {
+                        <tr>
+                            <td><a href="@Url.Action("Edit", new { id = item.MovieId })">@item.Title</a></td>
+                            <td>@item.Classification</td>
+                            <td>@item.Genre</td>
+                            <td>@item.ReleaseDate</td>
+                            <td>@item.Rating</td>
+                            <td class="text-right"><i title="Responsive device" class="fa fa-tablet fa-2x"></i></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <div class="text-center">
+                <ul class="pagination pagination-sm margin-top-0" id="networkPager">
+                    <li class="@(Model.CurrentPage == 1 ? "disabled" : "")" id="previousPage">
+                        <a href="javascript:;" title="Previous page"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                    </li>
+                    
+                    @for (int i = 0; i < Model.TotalPage; i++)
+                    {
+                        <li class="@(Model.CurrentPage == i + 1 ? "active" : "")">
+                            <a href="" class="paging-button" data-page="@(i + 1)">@(i + 1)</a>
+                        </li>
+                    }
+                    <li class="@(Model.CurrentPage == Model.TotalPage ? "disabled" : "")" id="nextPage">
+                        <a href="javascript:;" title="Next page"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on('click', '.paging-button', gotopage);
+            $(document).on('click', '#previousPage', previousPage);
+            $(document).on('click', '#nextPage', nextPage);
+            $(document).on('click', '#btnsearch', submitPage);
+        });
+
+        function gotopage(e) {
+            e.preventDefault();
+
+            var page = $(this).data('page');
+            $('#CurrentPage').val(page);
+
+            $('form').submit();
+        }
+
+        function submitPage() {
+            $('#NewSearch').val(true);
+
+            $('form').submit();
+        }
+
+        function previousPage() {
+            if ($(this).hasClass("disabled")) {
+                return;
+            }
+
+            var currentPage = parseInt($('#CurrentPage').val());
+            $('#CurrentPage').val(currentPage - 1);
+
+            $('form').submit();
+        }
+
+        function nextPage() {
+            if ($(this).hasClass("disabled")) {
+                return;
+            }
+
+            var currentPage = parseInt($('#CurrentPage').val());
+            $('#CurrentPage').val(currentPage + 1);
+
+            $('form').submit();
+        }
+    </script>
+}

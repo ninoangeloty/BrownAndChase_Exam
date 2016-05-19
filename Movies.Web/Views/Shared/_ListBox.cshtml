@@ -1,0 +1,31 @@
+﻿@model string[]
+
+<style>
+    .list-box .form-control select {
+        height: 500px;
+    }
+
+    .help-block {
+        opacity: 0.5;
+        /*font-style: italic;*/
+        font-size: small;
+    }
+</style>
+
+<div class="list-box-container">
+    <div class="input-group">
+        <div class="input-group" style="width: 350px">
+            <input type="text" id="text-list-box" class="form-control" placeholder="Enter Cast" style="width: 100%;">
+            <span class="input-group-btn">
+                <button id="add-list-box" class="btn btn-default" type="button">
+                    Add
+                </button>
+            </span>
+        </div>
+        <div class="list-box" style="margin-top: 5px;">
+            @Html.ListBox("Cast", Model.Select(_ => new SelectListItem() { Text = _, Value = _ }), 
+                new { @class = "form-control", name = "Cast", style = "border: 1px solid #eee; box-shadow: none; height: 100px;" })
+        </div>
+        <p class="help-block">Select a name and press 'Delete' to remove from the list.</p>
+    </div>
+</div>
